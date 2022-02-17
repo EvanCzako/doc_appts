@@ -1,0 +1,44 @@
+<h1><%=@doctor.first_name%> <%=@doctor.last_name%>'s Appointments</h1>
+
+<form action="/doctors/<%=@doctor.id%>/appointments" method="GET">
+    <div>Date: </div><input type="date" value="2018-05-09" name="appointment[appt_date]">
+    <input type="hidden" name="appointment[doctor_id]" value=<%=@doctor.id%>>
+    <input type="submit"  value="Find Existing Appointments">
+</form>
+<br>
+<div>---------------</div>
+<h3>Make New Appointment</h3>
+<form action="/appointments" method="POST">
+    <input type="hidden" name="appointment[doctor_id]" value=<%=@doctor.id%>>
+    <label for="first-name-field">Patient First Name: </label>
+    <input id="patient-first-name-field" type="text" name="appointment[patient_first_name]">
+    <br>
+    <label for="first-name-field">Patient Last Name: </label>
+    <input id="patient-last-name-field" type="text" name="appointment[patient_last_name]">
+    <br>
+    <label for="appt-date-field">Appointment Date: </label>
+    <input type="date" value="2018-05-09" name="appointment[date]">
+    <br>
+    <input type="time" value="09:00:00" name="appointment[time]">
+    <br>
+
+    <label for="appt-type">Type:</label>
+    <select name="appointment[appointment_type]" id="appt-type">
+        <option value="New Patient">New Patient</option>
+        <option value="Follow-Up">Follow-Up</option>
+    </select>
+    <br>
+    <br>
+    <input type="submit"  value="Create Appointment">
+</form>
+
+<%if flash[:message]%>
+    <%flash[:message].each do |error|%>
+
+        <li><%=error%></li>
+
+    <%end%>
+<%end%>
+
+<br>
+<a href="/doctors">Back to Physicians</a>

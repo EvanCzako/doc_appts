@@ -1,0 +1,30 @@
+<h1>Physicians</h1>
+
+<% @doctors.each do |doctor|%>
+
+    <a href=<%="/doctors/#{doctor.id}"%>><%=doctor.first_name%> <%=doctor.last_name%>'s Appointments</a>
+    <form action=<%="/doctors/#{doctor.id}"%> method="POST">
+        <input name="_method" type="hidden" value="DELETE" />
+        <input type="submit" value="Delete Physician">
+    </form>
+    <br>
+
+<%end%>
+
+<h2>Add New Physician</h2>
+
+<form action="/doctors" method="POST">
+    <label for="first-name-field">First Name: </label>
+    <input id="first-name-field" type="text" name="doctor[first_name]">
+    <label for="last-name-field">Last Name: </label>
+    <input id="last-name-field" type="text" name="doctor[last_name]">
+    <input type="submit"  value="Create Physician">
+</form>
+
+<%if flash[:message]%>
+    <%flash[:message].each do |error|%>
+
+        <li><%=error%></li>
+
+    <%end%>
+<%end%>

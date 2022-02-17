@@ -1,0 +1,23 @@
+<h1><%=@doctor.first_name%> <%=@doctor.last_name%>'s Appointments</h1>
+
+<br>
+
+<% @appointments.each_with_index do |appointment, i|%>
+
+    <div><%=i+1%>: <%=appointment.patient_first_name%> <%=appointment.patient_last_name%></div>
+    <div>Time: <%=appointment.time.strftime("%H:%M")%></div>
+    <div>Date: <%=appointment.date%></div>
+    <div>Appointment type: <%=appointment.appointment_type%></div>
+    <form action=<%="/appointments/#{appointment.id}"%> method="POST">
+        <input name="_method" type="hidden" value="DELETE" />
+        <input name="appointment[doctor_id]" type="hidden" value="<%=@doctor.id%>" />
+        <input type="submit" value="Delete Appointment">
+    </form>
+    <br>
+    <span>---------------------</span>
+<%end%>
+<br>
+<br>
+<a href="/doctors/<%=@doctor.id%>">Back to <%=@doctor.first_name%> <%=@doctor.last_name%>'s Appointments</a>
+<br>
+<a href="/doctors">Back to Physicians</a>
